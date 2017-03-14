@@ -150,7 +150,10 @@ def loops_5():
         "There are {} green bottles".format(8)
     you'll come to see the pros and cons of each over time.
     """
-    pass
+    returnedList = []
+    for i in range(10):
+        returnedList.append(['(i{}, j{})'.format(i, j) for j in range(5)])
+    return returnedList
 
 
 def loops_6():
@@ -173,7 +176,7 @@ def loops_6():
     You can use a variable.
     TIP: look out for the starting condition.
     """
-    pass
+    return [map(str, range(i)) for i in range(1, 11)]
 
 
 def loops_7():
@@ -197,7 +200,12 @@ def loops_7():
     This is a hard problem. Use lots of experimentation and draw
     lots of diagrams!
     """
-    pass
+    returnedList = []
+    for i in range(0, 5)[::-1]:
+        temp = [' ' for _ in range(9)]
+        temp[i:9-i] = '*'*(9-2*i)
+        returnedList.append(temp)
+    return returnedList
 
 
 def lp(some_kind_of_list, exercise_name):
