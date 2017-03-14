@@ -25,7 +25,7 @@ def fix_it(moves=True, should_move=True):
     "Duct Tape"
     "No Problem"
     """
-    if moves and should_move or not (moves and should_move):
+    if moves and should_move or not moves and not should_move:
         return "No Problem"
     elif moves and not should_move:
         return "Duct Tape"
