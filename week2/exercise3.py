@@ -51,7 +51,7 @@ def star_map():
     if it's even. Reuse the is odd function that you've already written.
     E.g.: ["!", "*", "!", "*", "!", "*", "!", "*", "!", "*"]
     """
-    return ['*' if is_odd(i) else '!' for i in range(1, 11)]
+    return ['*' if is_odd(i) else '!' for i in range(10)]
 
 
 def loops_1c(number_of_items=5, symbol="#"):
