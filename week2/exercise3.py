@@ -51,7 +51,7 @@ def star_map():
     if it's even. Reuse the is odd function that you've already written.
     E.g.: ["!", "*", "!", "*", "!", "*", "!", "*", "!", "*"]
     """
-    pass
+    return ['*' if is_odd(i) else '!' for i in range(1, 11)]
 
 
 def loops_1c(number_of_items=5, symbol="#"):
@@ -62,7 +62,7 @@ def loops_1c(number_of_items=5, symbol="#"):
     a string with exacly one symbol in it.
     E.g.: ['#', '#', '#', '#', '#']
     """
-    pass
+    return [symbol for _ in range(number_of_items)]
 
 
 def loops_2():
@@ -83,7 +83,7 @@ def loops_2():
             ['*', '*', '*', '*', '*', '*', '*', '*', '*', '*'],
           ]
     """
-    pass
+    return [['*' for i in range(10)] for j in range(10)]
 
 
 def loops_3():
@@ -107,7 +107,7 @@ def loops_3():
     TIP: notice that this needs to to return strings of numbers,
          so call str(number) to cast.
     """
-    pass
+    return [[str(i) for _ in range(10)] for i in range(10)]
 
 
 def loops_4():
@@ -125,7 +125,7 @@ def loops_4():
       ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
     ]
     """
-    pass
+    return [map(str, range(10)) for _ in range(10)]
 
 
 def loops_5():
