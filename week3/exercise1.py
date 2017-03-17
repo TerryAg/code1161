@@ -74,7 +74,8 @@ def stubborn_asker(low, high):
     low = int(low)
     high = int(high)
     while not (low < n < high):
-        n = int(raw_input("Enter a number between {} and {}: ".format(low, high)))
+        n = int(raw_input("Enter a number" +
+                "between {} and {}: ".format(low, high)))
         if not low < n < high:
             print("That is out of bounds!")
     return n
@@ -92,7 +93,7 @@ def not_number_rejector():
         n = raw_input("Enter a number: ")
         try:
             n = int(n)
-        except ValueError:
+        except:
             print("That is not a number!")
             n = None
     return n
@@ -111,7 +112,7 @@ def super_asker(low, high):
         n = raw_input("Enter a number between {} and {}: ".format(low, high))
         try:
             n = int(n)
-        except ValueError:
+        except:
             print("That is not a number!")
     return n
 
