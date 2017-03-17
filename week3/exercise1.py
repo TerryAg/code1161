@@ -54,13 +54,16 @@ def gene_krupa_range(start, stop, even_step, odd_step):
     has odd steps be one size and even steps be another.
     """
     L = []
-    count = start
-    while count < stop:
-        L.append(count)
-        if count % 2:  # If even
-            count += even_step
+    counter = 2
+    while start < stop:
+        L.append(start)
+        if counter % 2:
+            start += odd_step
+            counter += 1
         else:
-            count += odd_step
+            start += even_step
+            counter += 1
+    print(L)
     return L
 
 
