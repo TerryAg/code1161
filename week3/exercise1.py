@@ -12,7 +12,12 @@ def loop_ranger(start, stop=None, step=1):
 
     Do this using any method apart from just using range()
     """
-    pass
+    L = []
+    count = start
+    while count < stop:
+        L.append(count)
+        count += step
+    return L
 
 
 def lone_ranger(start, stop, step):
@@ -20,7 +25,12 @@ def lone_ranger(start, stop, step):
 
     Look up the docs for range() and wrap it in a 1:1 way
     """
-    pass
+    L = []
+    count = start
+    while count < stop:
+        L.append(count)
+        count += step
+    return L
 
 
 def two_step_ranger(start, stop):
@@ -29,7 +39,12 @@ def two_step_ranger(start, stop):
     Sometimes you want to hide complexity.
     Make a range function that always has a step size of 2
     """
-    pass
+    L = []
+    count = start
+    while count < stop:
+        L.append(count)
+        count += 2
+    return L
 
 
 def gene_krupa_range(start, stop, even_step, odd_step):
@@ -38,7 +53,15 @@ def gene_krupa_range(start, stop, even_step, odd_step):
     make a list that instead of having evenly spaced steps
     has odd steps be one size and even steps be another.
     """
-    pass
+    L = []
+    count = start
+    while count < stop:
+        L.append(count)
+        if count % 2:  # If even
+            count += even_step
+        else:
+            count += odd_step
+    return L
 
 
 def stubborn_asker(low, high):
@@ -47,17 +70,32 @@ def stubborn_asker(low, high):
     Ask for a number, and if the response is outside the bounds keep asking
     until you get a number that you think is OK
     """
-    pass
+    n = None
+    low = int(low)
+    high = int(high)
+    while not (low < n < high):
+        n = int(raw_input("Enter a number between {} and {}: ".format(low, high)))
+        if not low < n < high:
+            print("That is out of bounds!")
+    return n
 
 
-def not_number_rejector(message):
+def not_number_rejector():
     """Ask for a number repeatedly until actually given one.
 
     Ask for a number, and if the response is actually NOT a number (e.g. "cow",
     "six", "8!") then throw it out and ask for an actual number.
     When you do get a number, return it.
     """
-    pass
+    n = None
+    while n is None:
+        n = raw_input("Enter a number: ")
+        try:
+            n = int(n)
+        except ValueError:
+            print("That is not a number!")
+            n = None
+    return n
 
 
 def super_asker(low, high):
@@ -66,7 +104,17 @@ def super_asker(low, high):
     Combine stubborn_asker and not_number_rejector to make a function
     that does it all!
     """
-    pass
+    n = None
+    low = int(low)
+    high = int(high)
+    while not (low < n < high):
+        n = raw_input("Enter a number between {} and {}: ".format(low, high))
+        try:
+            n = int(n)
+        except ValueError:
+            print("That is not a number!")
+    return n
+
 
 if __name__ == "__main__":
     # this section does a quick test on your results and prints them nicely.
