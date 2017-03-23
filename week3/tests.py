@@ -61,6 +61,10 @@ def test_not_number_rejector():
 
 def test_super_asker(low, high):
     """Test the super asker function."""
+    try:
+        import exercise1
+    except Exception as e:
+        return syntax_error_message(e)
     dirty_things = ["aword", [1, 2, 3], {"an": "object"}]
     neat_range = range(low - 25, high + 20, 5)
     mockInputs = dirty_things + neat_range
@@ -93,6 +97,10 @@ def test_example_guessingGame():
 def test_advanced_guessingGame(mockInputs):
     """Test the advanced_guessingGame function."""
     try:
+        import exercise3
+    except Exception as e:
+        return syntax_error_message(e)
+    try:
         with mock.patch('__builtin__.raw_input', side_effect=mockInputs):
             return exercise3.advancedGuessingGame() == "You got it!"
     except Exception as e:
@@ -104,6 +112,10 @@ def test_binary_search(low, high, actual):
 
     checks to see that it's searching better than O(log n)
     """
+    try:
+        import exercise4
+    except Exception as e:
+        return syntax_error_message(e)
     BASE2 = 2
     b = exercise4.binary_search(low, high, actual)
     b["WorstCaseO"] = math.log(high - low, BASE2)
@@ -116,6 +128,10 @@ def test_binary_search(low, high, actual):
 
 def vis_binary_search_performance():
     """Provide a visualisation of the performance of the binary search."""
+    try:
+        import exercise4
+    except Exception as e:
+        return syntax_error_message(e)
     import matplotlib.pyplot as plt
     BASE2 = 2
     results = []
