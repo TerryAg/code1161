@@ -33,7 +33,6 @@ def advancedGuessingGame():
         upper = int_input("Enter the upper bound: ")
 
     random_int = random.randint(lower, upper)
-    print(random_int)
     print("Guess the number between {} and {}!".format(lower, upper))
     while True:
         guess = int_input("Guess: ")
