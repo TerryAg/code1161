@@ -11,7 +11,7 @@ import exercise1
 import math
 import os
 import sys
-sys.path.append(os.path.dirname(__file__)[:-5])
+sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 from codeHelpers import completion_message
 from codeHelpers import nyan_cat
 from codeHelpers import test
@@ -61,18 +61,26 @@ def theTests(path_to_code_to_check=""):
              "Exercise 1: get some data out of a JSON file"))
 
     lengths = [3, 5, 7, 9, 11, 13, 15, 17, 19, 20, 18, 16, 14, 12, 10, 8, 6, 4]
-    testResults.append(
-        test([len(w) for w in exercise1.wordy_pyramid()] == lengths,
-             "Exercise 1: request some simple data from the internet"))
+    try:
+        testResults.append(
+            test([len(w) for w in exercise1.wordy_pyramid()] == lengths,
+                 "Exercise 1: request some simple data from the internet"))
+    except Exception as e:
+        testResults.append(False)
+        print("Exercise 1: request some simple data from the internet", e)
 
     weather_results = {'latitude': u'-33.924206',
                        'state': u'NSW',
                        'longitude': u'151.187912',
                        'local_tz_offset': u'+1100'}
-    testResults.append(
-        test(process_wunderground(exercise1.wunderground()) ==
-             process_wunderground(weather_results),
-             "Exercise 1: get some data from the weather underground."))
+    try:
+        testResults.append(
+            test(process_wunderground(exercise1.wunderground()) ==
+                 process_wunderground(weather_results),
+                 "Exercise 1: get some data from the weather underground."))
+    except Exception as e:
+        testResults.append(False)
+        print("Exercise 1: get some data from the weather underground.", e)
 
     if os.path.isfile(LOCAL + "/lasers.pew"):
         testResults.append(
@@ -91,7 +99,9 @@ def theTests(path_to_code_to_check=""):
         message = "Rad, you've got all the tests passing!"
         completion_message(message, len(message) + 2)
 
-    return {"of_total": sum(testResults), "mark": len(testResults)}
+    return {"of_total": len(testResults),
+            "mark": sum(testResults),
+            "results": testResults}
 
 
 if __name__ == "__main__":
