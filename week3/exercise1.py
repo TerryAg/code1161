@@ -84,7 +84,7 @@ def stubborn_asker(low, high):
     return n
 
 
-def not_number_rejector():
+def not_number_rejector(message):
     """Ask for a number repeatedly until actually given one.
 
     Ask for a number, and if the response is actually NOT a number (e.g. "cow",
