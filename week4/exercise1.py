@@ -60,7 +60,7 @@ def get_some_details():
     return {"lastName":       result["name"]["last"],
             "password":       result["login"]["password"],
             "postcodePlusID": result["location"]["postcode"] +
-                                int(result["id"]["value"])
+            int(result["id"]["value"])
             }
 
 
@@ -98,9 +98,9 @@ def wordy_pyramid():
     """
     letter_counts = range(3, 20, 2) + range(4, 21, 2)[::-1]
     words = []
+    url = 'http://randomword.setgetgo.com/get.php'
     for letter_count in letter_counts:
-        r = requests.get('http://randomword.setgetgo.com/get.php',
-                            params={"len":str(letter_count)})
+        r = requests.get(url, params={"len": str(letter_count)})
         words.append(r.text)
 
     return words
@@ -133,6 +133,7 @@ def wunderground():
             "longitude":       obs2['longitude'],
             "local_tz_offset": obs['local_tz_offset']}
 
+
 def diarist():
     """Read gcode and find facts about it.
 
@@ -157,7 +158,6 @@ def diarist():
     pew_file = '/week4/lasers.pew'
     with open(os.path.join(os.getcwd() + pew_file), 'w') as pew:
         pew.write(str(count))
-
     return count
 
 
