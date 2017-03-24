@@ -146,7 +146,19 @@ def diarist():
     TIP: remember to commit 'lasers.pew' and push it to your repo, otherwise
          the test will have nothing to look at.
     """
-    pass
+    count = 0
+    laser_file = '/week4/Trispokedovetiles(laser).gcode'
+    with open(os.path.join(os.getcwd() + laser_file), 'r') as laser:
+        commands = laser.read().split('\n')
+        for command in commands:
+            if "M10 P1" in command:
+                count += 1
+
+    pew_file = '/week4/lasers.pew'
+    with open(os.path.join(os.getcwd() + pew_file), 'w') as pew:
+        pew.write(str(count))
+
+    return count
 
 
 if __name__ == "__main__":
