@@ -4,7 +4,6 @@ from __future__ import print_function
 import json
 import os
 import requests
-import ast
 
 # Handy constants
 LOCAL = os.path.dirname(os.path.realpath(__file__))  # the context of this file
@@ -32,9 +31,8 @@ def success_is_relative():
     # that it changes.
     # print(path, CWD)
     week1file = '/week1/pySuccessMessage.json'
-    with open(os.path.join(os.getcwd() + week1file), 'r') as success_message:
-        success = ast.literal_eval(success_message.read())
-        return success["message"]
+    with open(os.path.join(os.getcwd + week1file), 'r') as success_message:
+        return success_message.read()
 
 
 def get_some_details():
