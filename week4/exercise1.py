@@ -31,7 +31,7 @@ def success_is_relative():
     # that it changes.
     # print(path, CWD)
     week1file = '/week1/pySuccessMessage.json'
-    with open(os.path.join(os.getcwd + week1file), 'r') as success_message:
+    with open(os.path.join(os.getcwd() + week1file), 'r') as success_message:
         return success_message.read()
 
 
