@@ -4,10 +4,13 @@ from __future__ import print_function
 import json
 import os
 import requests
+import ast
 
 # Handy constants
 LOCAL = os.path.dirname(os.path.realpath(__file__))  # the context of this file
+print(LOCAL)
 CWD = os.getcwd()  # The curent working directory
+print(CWD)
 if LOCAL != CWD:
     print("Be careful that your relative paths are")
     print("relative to where you think they are")
@@ -22,13 +25,16 @@ def success_is_relative():
     TIP: remember that it's relative to your excecution context, not this file.
          The tests are run from the code1161base directory, that's the
          excecution context for this test.
-    TIP: check that there ins't unwanted whitespace or line endings in the
+    TIP: check that there isn't unwanted whitespace or line endings in the
          response. Look into .strip() and see what it does.
     """
     # this depends on excecution context. Take a look at your CWD and remember
     # that it changes.
     # print(path, CWD)
-    pass
+    week1file = '/week1/pySuccessMessage.json'
+    with open(os.path.join(os.getcwd() + week1file), 'r') as success_message:
+        success = ast.literal_eval(success_message.read())
+        return success["message"]
 
 
 def get_some_details():
@@ -50,9 +56,11 @@ def get_some_details():
     json_data = open(LOCAL + "/lazyduck.json").read()
 
     data = json.loads(json_data)
-    return {"lastName":       None,
-            "password":       None,
-            "postcodePlusID": None
+    result = data["results"][0]
+    return {"lastName":       result["name"]["last"],
+            "password":       result["login"]["password"],
+            "postcodePlusID": result["location"]["postcode"] +
+                                int(result["id"]["value"])
             }
 
 
@@ -88,7 +96,14 @@ def wordy_pyramid():
     ]
     TIP: to add an argument to a URL, use: ?argName=argVal e.g. ?len=
     """
-    pass
+    letter_counts = range(3, 20, 2) + range(4, 21, 2)[::-1]
+    words = []
+    for letter_count in letter_counts:
+        r = requests.get('http://randomword.setgetgo.com/get.php',
+                            params={"len":str(letter_count)})
+        words.append(r.text)
+
+    return words
 
 
 def wunderground():
@@ -103,7 +118,7 @@ def wunderground():
          variable and then future access will be easier.
     """
     base = "http://api.wunderground.com/api/"
-    api_key = "YOUR KEY - REGISTER TO GET ONE"
+    api_key = "bc54a4eaad8a7061"
     country = "AU"
     city = "Sydney"
     template = "{base}/{key}/conditions/q/{country}/{city}.json"
@@ -111,12 +126,12 @@ def wunderground():
     r = requests.get(url)
     the_json = json.loads(r.text)
     obs = the_json['current_observation']
+    obs2 = obs['display_location']
 
-    return {"state":           None,
-            "latitude":        None,
-            "longitude":       None,
-            "local_tz_offset": None}
-
+    return {"state":           obs2['state'],
+            "latitude":        obs2['latitude'],
+            "longitude":       obs2['longitude'],
+            "local_tz_offset": obs['local_tz_offset']}
 
 def diarist():
     """Read gcode and find facts about it.
