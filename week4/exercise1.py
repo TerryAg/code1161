@@ -7,9 +7,7 @@ import requests
 
 # Handy constants
 LOCAL = os.path.dirname(os.path.realpath(__file__))  # the context of this file
-print(LOCAL)
 CWD = os.getcwd()  # The curent working directory
-print(CWD)
 if LOCAL != CWD:
     print("Be careful that your relative paths are")
     print("relative to where you think they are")
