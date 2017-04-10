@@ -53,7 +53,7 @@ def int_input(message=''):
     try:
         answer = int(answer)
         return answer
-    except:
+    except Exception:
         print("Please input an integer only!")
         return int_input("Integer: ")
 

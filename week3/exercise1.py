@@ -96,7 +96,7 @@ def not_number_rejector(message):
         n = raw_input("Enter a number: ")
         try:
             n = int(n)
-        except:
+        except Exception:
             print("That is not a number!")
             n = None
     return n
@@ -115,7 +115,7 @@ def super_asker(low, high):
         n = raw_input("Enter a number between {} and {}: ".format(low, high))
         try:
             n = int(n)
-        except:
+        except Exception:
             print("That is not a number!")
     return n
 
