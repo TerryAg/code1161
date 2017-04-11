@@ -1,100 +1,166 @@
-"""Refactoring.
+"""Recursion.
 
-This excercise is very similar to week 2, exercise 2. It contains a complete
-and working example, but it's very poorly written.
-
-Your job is to go through it and make it as good as you can.
-
-That means making it self-documenting wherever possible, adding comments where
-it isn't. Take repeated code and make it into a function. Also use functions
-to encapsulate concepts. If something is done many times, maybe a map or a loop
-is called for. Etc.
-
-The resulting file should read as close to english as possible.
-It must also pass the linter.
+Exercises and examples to illustrate recursion.
 """
-
 from __future__ import division
 from __future__ import print_function
-import requests
-
-def countdown(message, start, stop, completion_message):
-    for i in range(start, stop)[::-1]:
-        print(message, i)
-    print(completion_message)
+import turtle
 
 
-""" This should be a function called tell_me_about_this_right_triangle
-    it should return a dictionary of triangle facts, keys should include: Area,
-    perimeter, height, base, hypotinuse aspect (could be tall or wide)
-    It should optionally print information as a nicely formatted string. Make
-    printing turned off by default but turned on with an optional argument."""
+def abba(source="abba", guard=5):
+    """Recursively replace letters acording to the rules.
 
-def calculate_hypotinuse(base, height):
-    """A function which calculates the hypoteneuse of a triangle."""
-    return (base**2 + height**2)**0.5
+    This function takes a seed string, e.g. "abba" and replaces each letter in
+    turn acording to the rules. These rules can be of arbitrary complexity.
 
+    Modify the rules to map from:
 
-def get_triangle_facts(base, height, units="mm"):
-    """ A function which returns facts about triangles."""
-    return {"area": base*height,
-            "perimeter": base+height+calculate_hypotinuse(base, height),
-            "height": height,
-            "base": base,
-            "hypotinuse": calculate_hypotinuse(base, height),
-            "aspect": "tall" if height > base else "wide",
-            "units": units}
+                   abba
+                    to
+               bbaaobaobbba
+                    to
+    aobaobbbabbaoaaobbbaoaaobaobaobbba
+                and so on...
+    """
+    def apply_rules(letter):
+        if letter == "a":
+            return "bba"
+        elif letter == "b":
+            return "aob"
+        elif letter == "o":
+            return "oa"
+        else:
+            return letter
 
-
-def tell_me_about_this_right_triangle(facts_dictionary, printing=False):
-    """A function which describes a right-angled triangle."""
-
-    if printing:
-        return """
-    This triangle is {area}{units}²
-    It has a perimeter of {}{units}
-    {height}
-    |
-    |     |\\
-    |____>| \\  {hypotinuse}
-          |  \\
-          |   \\
-          ------
-          {base}
-
-    This is a {aspect} triangle.
-    """.format(facts_dictionary)
+    print(source)
+    source = list(source)  # convert "abba" to ["a", "b", "b", "a"]
+    result = map(apply_rules, source)
+    new_string = "".join(result)
+    guard -= 1
+    if guard > 0:
+        abba(new_string, guard)
+    else:
+        return new_string
 
 
-def print_triangle_things():
-    """A function which prints facts about triangles."""
-    base = 3
-    height = 4
-    facts_dictionary = get_triangle_facts(base, height, units="mm")
-    print(tell_me_about_this_right_triangle(facts_dictionary))
+def italian_dinner(axiom="tomatoes", guard=10):
+    """Make recursive dinner plans.
 
+    # The Italian dinner
 
-def wordy_pyramid():
-    """A function which makes a pyramid of words."""
-    baseURL = "http://www.setgetgo.com/randomword/get.php?len="
-    pyramid_list = []
-    letter_range = range(3, 20, 2) + range(4, 21, 2)[::-1]
-    for length in letter_range:
-        r = requests.get(baseURL + str(length))
-        pyramid_list.append(r.text)
+    In Douglas Hofstader's _Metamagical Themas_ (a compendium of essays he
+    wrote for _Scientific American_ when he took over from martin Gardiner),
+    there is a typically funny, but useful, introduction to production systems
+    based on a recursive replacement algorithm to generate Italian recipes.
+    Production systems are examples of recursive algorithms, that is, they are
+    functions that use as input the output of their own results on earlier
+    operations.
 
-    return pyramid_list
+    The most general way of characterising a production system is to see it as
+    a formal language based on symbol manipulation. They habe much in common
+    with formal systems in logic in that:
+        1.  they start with an axiom, which is given of the formal system;
+        2.  there are a set of statements inthe formal system which can be
+            thought of as theroums of the system; and
+        3.  there are a set of rules for transforming any statement which is
+            part of the formal system into any other using replacement rules.
+    In the itallian dinner, teh axiom is of course _tomatoes_
 
+    Note that in order for this to work, we need to habe at least one word in
+    the right-hand side that matches one of the words in the left-hand side.
+    If we do not do this then the production system will not catch, and it will
+    fail to expand into the florid ingredients list.
 
-wordy_pyramid()
+    From Paul Coates, Programming.Architecture
+    I would strongly recomend reading this book!
 
+    referencing: DOUGLAS R. HOFSTADTER, Metamagical Themas
+    https://archive.org/stream/MetamagicalThemas/Metamagical%20Themas,%20Hofstadter_djvu.txt
+    """
+    # TODO: get the real table for this!
+    def rules(word):
+        if word == "tomatoes":
+            return "delicious tomatoes with linguini"
+        elif word == "linguini":
+            return "linguini and basil"
+        elif word == "basil":
+            return "pesto made from basil and tomatoes"
+        elif word == "delicious":
+            return "delicious and runny pesto"
+        else:
+            return word
 
-def get_a_word_of_length_n(n):
-    """Returns a word of length-n"""
-    url = "http://www.setgetgo.com/randomword/get.php?len="+str(n)
-    return requests.get(url).text
-
-
-def list_of_words_with_lengths(list_of_lengths):
-    """."""
+    print(axiom)
+    axiom = axiom.split(" ")  # convert "abba" to ["a", "b", "b", "a"]
+    result = map(rules, axiom)
+    new_string = " ".join(result)
+    guard -= 1
+    if guard > 0:
+        italian_dinner(new_string, guard)
+    else:
+        return new_string
     pass
+
+
+def koch(t, order, size):
+    """Make turtle t draw a Koch fractal of 'order' and 'size'."""
+    trace = ""
+    if order == 0:          # The base case is just a straight line
+        t.forward(size)
+    else:
+        trace += koch(t, order-1, size/3)   # Go 1/3 of the way
+        t.left(60)
+        trace += koch(t, order-1, size/3)
+        t.right(120)
+        trace += koch(t, order-1, size/3)
+        t.left(60)
+        trace += koch(t, order-1, size/3)
+    return str(order) + trace
+
+
+def draw_koch(drawing_method, steps_deep=4):
+    """Open a tk window and show the turtle drawing the koch curve.
+
+    Docs for python turtles here.
+    https://docs.python.org/2/library/turtle.html
+    """
+    raphael = turtle.Turtle()
+    raphael.speed(1000)
+    raphael.penup()
+    raphael.goto(-300, 0)
+    raphael.pendown()
+    trace = drawing_method(raphael, order=steps_deep, size=600)
+    return trace
+
+
+def square_koch(t, order, size):
+    r"""Draw a koch curve with a square rather than a triangular point.
+
+           _
+    e.g. _| |_ rather than _/\_
+
+    Leave the turtle facing the same direction.
+
+    """
+    trace = ""
+    if order == 0:          # The base case is just a straight line
+        t.forward(size)
+    else:
+        trace += square_koch(t, order-1, size/3)   # Go 1/3 of the way
+        t.left(90)
+        trace += square_koch(t, order-1, size/3)
+        t.right(90)
+        trace += square_koch(t, order-1, size/3)
+        t.right(90)
+        trace += square_koch(t, order-1, size/3)
+        t.left(90)
+        trace += square_koch(t, order-1, size/3)
+    return str(order) + trace
+    pass
+
+
+if __name__ == '__main__':
+    print(draw_koch(drawing_method=square_koch, steps_deep=4))
+    print(draw_koch(drawing_method=koch, steps_deep=4))
+    abba()
+    # italian_dinner()
