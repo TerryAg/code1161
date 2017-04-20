@@ -21,7 +21,7 @@ from codeHelpers import test
 from codeHelpers import test_flake8
 from codeHelpers import test_pydocstyle
 from codeHelpers import grumpy
-# from codeHelpers import Timeout
+
 
 WEEK_NUMBER = 5
 PASS = 1
@@ -71,14 +71,13 @@ def theTests(path_to_code_to_check="."):
     print("\nWelcome to week {}!".format(WEEK_NUMBER))
     print("May the odds be ever in your favour.\n")
 
+    testResults = []
+
+    # stack the tests below here
     path = "{}/week{}/exercise1.py".format(path_to_code_to_check, WEEK_NUMBER)
     print(path)
 
     e1 = imp.load_source("exercise1", path)
-
-    testResults = []
-
-    # stack the tests below here
 
     # Linter test
     print("Linter test:", path)
@@ -115,7 +114,8 @@ def theTests(path_to_code_to_check="."):
             testResults.append(FAIL)
 
     triangles = [{
-                  'area': 6.0, 'aspect': 'tall',
+                  'area': 6.0,
+                  'aspect': 'tall',
                   'base': 3, 'height': 4,
                   'hypotenuse': 5.0,
                   'perimeter': 12.0,
@@ -129,19 +129,22 @@ def theTests(path_to_code_to_check="."):
                   'perimeter': 23.440306508910552,
                   'units': 'mm'},
                  {
-                  'area': 60.0, 'aspect': 'tall',
+                  'area': 60.0,
+                  'aspect': 'tall',
                   'base': 8, 'height': 15,
                   'hypotenuse': 17.0,
                   'perimeter': 40.0,
                   'units': 'mm'},
                  {
-                  'area': 12.5, 'aspect': 'equal',
+                  'area': 12.5,
+                  'aspect': 'equal',
                   'base': 5, 'height': 5,
                   'hypotenuse': 7.0710678118654755,
                   'perimeter': 17.071067811865476,
                   'units': 'mm'},
                  {
-                  'area': 180.0, 'aspect': 'tall',
+                  'area': 180.0,
+                  'aspect': 'tall',
                   'base': 9, 'height': 40,
                   'hypotenuse': 41.0,
                   'perimeter': 90.0,
@@ -224,7 +227,9 @@ def theTests(path_to_code_to_check="."):
         test(type(tf) is str,
              "exercise 1: triangle_master diagram: T, dictionary: F"))
     testResults.append(
-        test(type(ft) is dict and "units" in ft and type(ft["facts"]) is dict,
+        test(type(ft) is dict and
+             "units" in ft["facts"] and
+             type(ft["facts"]) is dict,
              "exercise 1: triangle_master diagram: F, dictionary: T"))
     testResults.append(
         test(type(tt) is dict and type(tt["diagram"]) is str,
@@ -267,13 +272,51 @@ def theTests(path_to_code_to_check="."):
         words = e1.wordy_pyramid()
         expected = [len(w) for w in words]
         works = expected == lengths
-        print(expected, "\n", lengths)
+        print("expected     ", expected, "\ngiven lengths", lengths)
         [print(w + " " + str(len(w))) for w in words]
     except Exception as e:
         works = False
         print("Exercise 1: wordy_pyramid is broken", e)
     testResults.append(
         test(works, "Exercise 1: wordy_pyramid still works"))
+
+    # EXERCISE 2 tests
+    path = "{}/week{}/exercise2.py".format(path_to_code_to_check, WEEK_NUMBER)
+    print(path)
+
+    e2 = imp.load_source("exercise2", path)
+
+    # Linter test
+    print("Linter test:", path)
+    testResults.append(
+        test(test_flake8(path),
+             "Exercise 2: pass the linter"))
+
+    # pydocstyle test
+    print("Docstyle test:", path)
+    testResults.append(
+        test(test_pydocstyle(path),
+             "Exercise 2: pass the pydocstyle test"))
+
+    source = ["baaab",
+              "b",
+              "roof",
+              "hell"]
+    result = ["bbaoaaobaobaobbbaaobaobbbaaobaobbbabbaoaaob",
+              "bbaoaaob",
+              "roabbaoabbaf",
+              "hell"]
+    for source, result in zip(source, result):
+        testResults.append(
+            test(e2.abba(source, 2) == result,
+                 "exercise 2: abba {}⇨{}".format(source, result)))
+
+    testResults.append(
+        test(e2.draw_square(2) == "2100000100000100000100000100000",
+             "exercise 2: Koch _|-|_"))
+    testResults.append(
+        test(e2.draw_pointy(2) == "210000100001000010000",
+             "exercise 2: Koch _^_"))
 
     # CLEANUP AND FINISH
 

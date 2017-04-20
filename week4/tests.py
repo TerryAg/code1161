@@ -55,9 +55,6 @@ def tzOffset():
 
 def treat():
     """Go and get the coloured ascii face particular to this person."""
-    url = ("https://raw.githubusercontent.com/"
-           "notionparallax/code1161base/master/faces/")
-
     with open('.git/config', 'r') as f:
         for line in f:
             if ('url = https://github.com/' in line) \
@@ -70,10 +67,13 @@ def treat():
             elif 'url = https://github.com/notionparallax' in line:
                 print("we must be testing the tests")
                 name = "notionparallax"
-    if not name:
-        print("Error with getting github username")
-    else:
-        print("treat:\n", requests.get(url + name).text)
+    try:
+        url = ("https://raw.githubusercontent.com/"
+               "notionparallax/code1161base/master/faces/")
+        full_url = url + name
+        print("treat:\n", full_url, requests.get(full_url).text)
+    except Exception as e:
+        print("Error with getting github username", e)
 
 
 def theTests(path_to_code_to_check="."):
