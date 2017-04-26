@@ -32,7 +32,10 @@ from __future__ import print_function
 # It should say something different in the last message.
 def countdown(message, start, stop, completion_message):
     """Count down."""
-    return [message for _ in range(start, stop, -1)] + [completion_message]
+    if start < stop:
+        a = [message for _ in range(start, stop)[::-1]]
+        return a + [completion_message]
+    return [message for _ in range(stop, start)[::-1]] + [completion_message]
 
 
 # TRIANGLES
