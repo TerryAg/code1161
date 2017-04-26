@@ -163,8 +163,8 @@ def triangle_master(base,
 
 def wordy_pyramid():
     """Get wordy pyramid."""
-    pyramid_list = list_of_words_with_lengths(range(3, 21, 2)).extend(
-                   list_of_words_with_lengths(range(20, 3, -2)))
+    pyramid_list = list_of_words_with_lengths(range(3, 20, 2))
+    pyramid_list.extend(list_of_words_with_lengths(range(3, 21)[::-2]))
     return pyramid_list
 
 

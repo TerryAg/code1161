@@ -97,16 +97,23 @@ def abba(source="abba", guard=3):
         You need to change these substitutions to make it work.
         """
         if letter == "a":
-            return "a"
+            return "bba"
         elif letter == "b":
-            return "b"
+            return "aob"
         elif letter == "o":
-            return "o"
+            return "oa"
         else:
             return letter
 
     # write the rest of the function here
-    pass
+    result = ''
+    for let in  source:
+        result += apply_rules(let)
+    if guard >= 2:
+        for i in range(guard-1):
+            return abba(result, guard-i)
+    else:
+        return result
 
 
 def koch(t, order, size):

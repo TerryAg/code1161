@@ -60,6 +60,7 @@ def treat():
             if ('url = https://github.com/' in line) \
                and not ('notionparallax' in line):
                 # ensure it's not Ben's repo
+                print(line)
                 name = line.split('/')[-2]
                 if 'git' in name:
                     # if ssh url
