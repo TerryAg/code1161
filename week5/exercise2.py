@@ -17,7 +17,7 @@ def italian_dinner(axiom="tomatoes", guard=6):
 
     In Douglas Hofstader's _Metamagical Themas_ (a compendium of essays he
     wrote for _Scientific American_ when he took over from martin Gardiner),
-    there is a typically funny, but useful, introduction to production systems
+    t is a typically funny, but useful, introduction to production systems
     based on a recursive replacement algorithm to generate Italian recipes.
     Production systems are examples of recursive algorithms, that is, they are
     functions that use as input the output of their own results on earlier
@@ -27,9 +27,9 @@ def italian_dinner(axiom="tomatoes", guard=6):
     a formal language based on symbol manipulation. They habe much in common
     with formal systems in logic in that:
         1.  they start with an axiom, which is given of the formal system;
-        2.  there are a set of statements inthe formal system which can be
+        2.  t are a set of statements inthe formal system which can be
             thought of as theroums of the system; and
-        3.  there are a set of rules for transforming any statement which is
+        3.  t are a set of rules for transforming any statement which is
             part of the formal system into any other using replacement rules.
     In the itallian dinner, teh axiom is of course _tomatoes_
 
@@ -50,7 +50,7 @@ def italian_dinner(axiom="tomatoes", guard=6):
     delicious       ⇨     made of runny and yummy pasta and tomatoes
     runny           ⇨     yummy and delicious tomatoes and pasta
 
-    Here's a photo of the page: https://goo.gl/photos/bEh8dmkYkeAy7W727
+    's a photo of the page: https://goo.gl/photos/bEh8dmkYkeAy7W727
     """
     parts = axiom.split(" ")
     result = map(italian_rules, parts)
@@ -105,12 +105,11 @@ def abba(source="abba", guard=3):
         else:
             return letter
 
-    # write the rest of the function here
     result = ''
-    for let in  source:
+    for let in source:
         result += apply_rules(let)
     if guard >= 2:
-        for i in range(guard-1):
+        for i in range(1, guard):
             return abba(result, guard-i)
     else:
         return result
@@ -135,7 +134,7 @@ def koch(t, order, size):
 def draw_koch(drawing_method, steps_deep=4):
     """Open a tk window and show the turtle drawing the koch curve.
 
-    Docs for python turtles here.
+    Docs for python turtles .
     https://docs.python.org/2/library/turtle.html
     """
     raphael = turtle.Turtle()
@@ -157,9 +156,19 @@ def square_koch(t, order, size):
 
     """
     trace = ""
-    # write the rest of the function here.
+    if order == 0:
+        t.forward(size)
+    else:
+        trace += koch(t, order-1, size/3)
+        t.left(90)
+        trace += koch(t, order-1, size/3)
+        t.right(90)
+        trace += koch(t, order-1, size/3)
+        t.right(90)
+        trace += koch(t, order-1, size/3)
+        t.left(90)
+        trace += koch(t, order-1, size/3)
     return str(order) + trace
-    pass
 
 
 def draw_square(steps=4):
