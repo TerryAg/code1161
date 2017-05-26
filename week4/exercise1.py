@@ -121,13 +121,13 @@ def wunderground():
     url = template.format(base=base, key=api_key, country=country, city=city)
     r = requests.get(url)
     the_json = json.loads(r.text)
-    obs = the_json['current_observation']
-    obs2 = obs['display_location']
+    obs = the_json["current_observation"]
+    obs2 = obs["display_location"]
 
-    return {"state":           obs2['state'],
-            "latitude":        obs2['latitude'],
-            "longitude":       obs2['longitude'],
-            "local_tz_offset": obs['local_tz_offset']}
+    return {"state":           obs2["state"],
+            "latitude":        obs2["latitude"],
+            "longitude":       obs2["longitude"],
+            "local_tz_offset": obs["local_tz_offset"]}
 
 
 def diarist():
