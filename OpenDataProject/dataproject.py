@@ -2,6 +2,7 @@ import csv
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib
+import numpy as np
 from collections import Counter, defaultdict
 import os
 import geopandas as gp
@@ -9,6 +10,7 @@ import shapely
 import fiona
 import folium
 from IPython.display import display
+from math import isnan
 df = pd.read_csv("registeredpets.csv")
 print(df.columns)
 
@@ -29,27 +31,36 @@ def pet_count_suburbs():
 	plt.show()
 
 def registered_or_not():
-	pass
+	d = defaultdict(int)
+	for reg in df["registered"]:
+		if reg == "T":
+			d["True"] += 1
+		elif reg == "F":
+			d["False"] += 1
+		#else:nan
+	plt.pie(map(float, d.values()), labels=d.keys())
+	plt.axis('equal')
+	plt.show()
 
 def colours():
 	d = defaultdict(int)
 	colour_count = {}
-	print(df["colour"])
+	#print(df["colour"])
 	for colour in df["colour"]:
-		if colour is None: continue
-		slash = colour.split("/")
+		# if it's a nan
+		if isinstance(colour, float): continue
+		slash = map(str.strip, colour.split("/"))
 		for c in slash:
 			d[c] += 1
-	print d
-
-	print(d)
-	"""colours = d.keys()[1:]
-				sizes = d.values()[1:]
-				print(Counter(df["colour"]).keys()[1:])
-				fig1, ax1 = plt.subplots()
-				ax1.pie(sizes, labels=colours, autopct='%1.1f%%', shadow=True, startangle=90)
-				ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
-				plt.show()"""
+	d = {k:v for k, v in d.items() if v > 500}
+	colours = d.keys()
+	sizes = d.values()
+	colour_code = ["blue", "brown", "gold", "peachpuff", "lightslategray", "gray", "orange", "chocolate", "green",
+					"black", "sienna", "white", "peru", "moccasin", "tan", "red", "navajowhite"]
+					#green = tricolour
+	plt.pie(sizes,labels=colours, colors=colour_code, autopct='%1.1f%%')
+	plt.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+	plt.show()
 	
 #burbs = gp.GeoDataFrame.from_file("Geelong_Roads.shp")
 #geelong_coords = [38.1499, 144.3617]
@@ -63,4 +74,5 @@ def colours():
 
 #display_age_graph()
 #pet_count_suburbs()
-colours()
+#colours()
+registered_or_not()
