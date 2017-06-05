@@ -5,19 +5,15 @@ import matplotlib
 import numpy as np
 from collections import Counter, defaultdict
 import os
-import geopandas as gp
-import shapely
-import fiona
-import folium
-from IPython.display import display
 from math import isnan
 df = pd.read_csv("registeredpets.csv")
 print(df.columns)
+fontsize = 20
 
 def display_age_graph():
 	plt.hist(df["age"][df["age"] < 30], 29, facecolor="blue", alpha=0.75)
-	plt.xlabel("Age", fontsize=20)
-	plt.ylabel("Number of pets", fontsize=20)
+	plt.xlabel("Age", fontsize=fontsize)
+	plt.ylabel("Number of pets", fontsize=fontsize)
 	plt.title("List of all animals and their age")
 	plt.grid(True, axis='x', ls=':')
 	plt.show()
@@ -27,6 +23,7 @@ def pet_count_suburbs():
 	suburbs = d.keys()
 	suburbs = map(str.strip, sorted(suburbs, key=lambda x:d[x]))
 	plt.bar(range(len(d)), sorted(d.values()))
+	plt.ylabel("Number of pets", fontsize=fontsize)
 	plt.xticks(map(lambda x: x+0.4, range(len(d))), suburbs, rotation=90, size='xx-small')
 	plt.show()
 
@@ -81,42 +78,39 @@ def colours():
 	plt.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
 	plt.show()
 	
-def top_pet_names(percentage):
+def top_pet_names(number):
 	"""
-	Returns top percentage% of pet names
+	Returns top number of pet names
 	"""
 	d = Counter(df["animal_nam"])
 	#print(d)
 	#print(d.items())
 	ranked = sorted(d.items(), key=lambda x: x[1], reverse=True)
-	most_common = ranked[:percentage]
+	most_common = ranked[:number]
 	remaining = 0
-	for i in ranked[percentage:]:
+	for i in ranked[number:]:
 		remaining += i[1]
-	print(remaining)
 	main = 0
 	for i in most_common:
 		main += i[1]
 	print(main)
-	print("%.2f%%" % (main*1.0/remaining*1.0 * 100.0))
+	print("Percentage of top n names: %.2f%%" % (main*1.0/remaining*1.0 * 100.0))
+	print("Top %d names:" % number)
+	for name in most_common:
+		print(name[0], name[1])
 
+def top_dog_names():
+	pass
 
-#burbs = gp.GeoDataFrame.from_file("Geelong_Roads.shp")
-#geelong_coords = [38.1499, 144.3617]
-#g=folium.Map(location=geelong_coords, zoom_start=3.6)
-#g.save("mymap.html")
-#plt.xlim([0, 34564])
-#print(burbs.columns)
-#print(burbs["GEOCODE"])
-#burbs[burbs["GEOCODE"] is not None].plot()
-#plt.show()
+def top_cat_names():
+	pass
 
 # BASICS #
-display_age_graph()
-pet_count_suburbs()
-colours()
-registered_or_not()
-dogs_v_cats()
-top_pet_names(50)
+#display_age_graph()
+#pet_count_suburbs()
+#colours()
+#registered_or_not()
+#dogs_v_cats()
+top_pet_names(20)
 
 
