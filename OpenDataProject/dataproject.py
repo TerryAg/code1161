@@ -101,8 +101,6 @@ def top_pet_names(percentage):
 	print("%.2f%%" % (main*1.0/remaining*1.0 * 100.0))
 
 
-
-
 #burbs = gp.GeoDataFrame.from_file("Geelong_Roads.shp")
 #geelong_coords = [38.1499, 144.3617]
 #g=folium.Map(location=geelong_coords, zoom_start=3.6)
@@ -114,11 +112,11 @@ def top_pet_names(percentage):
 #plt.show()
 
 # BASICS #
-# display_age_graph()
-# pet_count_suburbs()
-# colours()
-# registered_or_not()
-# dogs_v_cats()
+display_age_graph()
+pet_count_suburbs()
+colours()
+registered_or_not()
+dogs_v_cats()
 top_pet_names(50)
 
 
