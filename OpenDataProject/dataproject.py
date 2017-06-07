@@ -5,7 +5,6 @@ import matplotlib
 import numpy as np
 from collections import Counter, defaultdict
 import os
-from math import isnan
 df = pd.read_csv("registeredpets.csv")
 print(df.columns)
 fontsize = 20
@@ -81,7 +80,6 @@ def colours():
 					"black", "sienna", "white", "peru", "moccasin", "tan", "red", "navajowhite"]
 					#green = tricolour
 	plt.pie(sizes,labels=colours, colors=colour_code, autopct='%1.1f%%')
-	plt.title("Most common colours of pets")
 	plt.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
 	plt.show()
 	
@@ -105,7 +103,7 @@ def top_pet_names(number):
 	print("Top %d names:" % number)
 	for name in most_common:
 		print(name[0], name[1])
-	plt.pie([float(i[1]) for i in most_common], labels=[i[0] for i in most_common])
+	plt.pie([float(i[1]) for i in most_common], labels=[i[0] for i in most_common], autopct='%1.1f%%')
 	plt.title("Top %d cat and dog names" % number)
 	plt.axis('equal')
 	plt.show()
@@ -115,20 +113,21 @@ def top_dogcat_names(number):
 	d_cat = Counter()
 	global_count = 0
 	for anim in df["type"]:
+		row = df.iloc[global_count]
 		if anim == "Dog":
-			d_dog[df.iloc[global_count]["animal_nam"]] += 1
+			d_dog[row["animal_nam"]] += 1
 		elif anim == "Cat":
-			d_cat[df.iloc[global_count]["animal_nam"]] += 1
+			d_cat[row["animal_nam"]] += 1
 		global_count += 1
 	dog_common = d_dog.most_common(number)
 	cat_common = d_cat.most_common(number)
 	print(dog_common)
 	print(cat_common)
-	plt.pie([float(i[1]) for i in dog_common], labels=[i[0] for i in dog_common])
+	plt.pie([float(i[1]) for i in dog_common], labels=[i[0] for i in dog_common], autopct='%1.1f%%')
 	plt.title("Top %d dog names" % number)
 	plt.axis('equal')
 	plt.show()
-	plt.pie([float(i[1]) for i in cat_common], labels=[i[0] for i in cat_common])
+	plt.pie([float(i[1]) for i in cat_common], labels=[i[0] for i in cat_common], autopct='%1.1f%%')
 	plt.title("Top %d cat names" % number)
 	plt.axis('equal')
 	plt.show()
@@ -141,6 +140,12 @@ registered_or_not()
 dogs_v_cats()
 top_pet_names(5)
 top_dogcat_names(5)
+
+
+"""
+first talk about data set, its columns, how data was inputted (eg lots of consistnet inputs so probably a dropdown enu except for name
+)
+
 
 
 
