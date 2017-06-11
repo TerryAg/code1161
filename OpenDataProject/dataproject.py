@@ -1,10 +1,6 @@
-import csv
 import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib
 from collections import Counter, defaultdict
-import os
 df = pd.read_csv("registeredpets.csv")
 fontsize = 20
 
@@ -19,6 +15,7 @@ def display_age_graph():
 	plt.grid(True, axis='x', ls=':')
 	plt.show()
 
+
 def pet_count_suburbs():
 	"""
 	Returns a bar graph of all suburb pet count.
@@ -32,6 +29,7 @@ def pet_count_suburbs():
 	plt.xticks(map(lambda x: x+0.4, range(len(d))), suburbs, rotation=90, size='xx-small')
 	plt.show()
 
+
 def make_autopct(values):
 	# Source: https://stackoverflow.com/a/6170354/1971805
     def my_autopct(pct):
@@ -39,6 +37,7 @@ def make_autopct(values):
         val = int(round(pct*total/100.0))
         return '{p:.2f}%  ({v:d})'.format(p=pct,v=val)
     return my_autopct
+
 
 def registered_or_not():
 	"""
@@ -55,6 +54,7 @@ def registered_or_not():
 	plt.axis('equal')
 	plt.show()
 
+
 def dogs_v_cats():
 	"""
 	Returns a pie chart of dogs to cats.
@@ -70,6 +70,7 @@ def dogs_v_cats():
 	plt.axis('equal')
 	plt.show()
 
+
 def colours():
 	"""
 	Returns pie chart of most common colours.
@@ -84,13 +85,13 @@ def colours():
 		for col in slash:
 			d[col] += 1
 	d = {k:v for k, v in d.items() if v > 500} # Only including colours mentioned 500 times or more
-	colours = d.keys()
 	sizes = d.values()
 	colour_code = ["blue", "brown", "gold", "peachpuff", "lightslategray", "gray", "orange", "chocolate", "green",
 					"black", "sienna", "white", "peru", "moccasin", "tan", "red", "navajowhite"]
-	plt.pie(sizes, labels=colours, colors=colour_code, autopct='%1.1f%%')
+	plt.pie(sizes, colors=colour_code, autopct='%1.1f%%')
 	plt.axis('equal')
 	plt.show()
+
 	
 def top_pet_names(number):
 	"""
@@ -105,19 +106,16 @@ def top_pet_names(number):
 	main = 0
 	for i in most_common:
 		main += i[1]
-	print(main)
 	print("Percentage of top n names: %.2f%%" % (main*1.0/remaining*1.0 * 100.0))
-	print("Top %d names:" % number)
-	for name in most_common:
-		print(name[0], name[1])
 	plt.pie([float(i[1]) for i in most_common], labels=[i[0] for i in most_common], autopct='%1.1f%%')
 	plt.title("Top %d cat and dog names" % number)
 	plt.axis('equal')
 	plt.show()
 
+
 def top_dogcat_names(number):
 	"""
-	Plots number of dog/cat names in a pie chart.
+	Plots top number of dog/cat names in a pie chart.
 	"""
 	d_dog = Counter()
 	d_cat = Counter()
@@ -140,17 +138,12 @@ def top_dogcat_names(number):
 	plt.axis('equal')
 	plt.show()
 
-L = []
-for i in df["animal_nam"]:
-	if isinstance(i, float): continue
-	L.append((len(i), i))
-for i,j in sorted(L):
-	print(i, j)
-# BASICS #
-# display_age_graph()
-# pet_count_suburbs()
-# colours()
-# registered_or_not()
-# dogs_v_cats()
-# top_pet_names(5)
-# top_dogcat_names(5)
+
+if __name__ == '__main__':
+	display_age_graph()
+	pet_count_suburbs()
+	colours()
+	registered_or_not()
+	dogs_v_cats()
+	top_pet_names(5)
+	top_dogcat_names(5)
