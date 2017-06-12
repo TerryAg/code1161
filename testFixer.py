@@ -1,6 +1,5 @@
-# -*- coding: UTF-8 -*-
-"""Get the latest version of the tests.
 
+"""Get the latest version of the tests.
 Goes to github and downloads the tests.
 """
 import os
@@ -13,7 +12,7 @@ LOCAL = os.path.dirname(os.path.realpath(__file__))
 def get_the_updates():
     gh_url = 'https://raw.githubusercontent.com/'
     repo = 'notionparallax/code1161base/'
-    for i in [1, 2, 3, 4, 5, 6, 8]:  # no week 7
+    for i in [1, 2, 3, 4, 5, 8]:  # no week 6/7
         file_path = "master/week{}/tests.py".format(i)
         url = gh_url + repo + file_path
         save_path = "week{}/tests.py".format(i)
