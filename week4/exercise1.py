@@ -94,7 +94,7 @@ def wordy_pyramid():
     """
     letter_counts = range(3, 20, 2) + range(4, 21, 2)[::-1]
     words = []
-    url = 'http://randomword.setgetgo.com/get.php'
+    url = 'http://setgetgo.com/randomword/get.php'
     for letter_count in letter_counts:
         r = requests.get(url, params={"len": str(letter_count)})
         words.append(r.text)
@@ -113,7 +113,7 @@ def wunderground():
          get very long. If you are accessing a thing often, assign it to a
          variable and then future access will be easier.
     """
-    base = "http://api.wunderground.com/api/"
+    base = "http://api.wunderground.com/api"
     api_key = "bc54a4eaad8a7061"
     country = "AU"
     city = "Sydney"

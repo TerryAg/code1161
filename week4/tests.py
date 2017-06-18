@@ -126,6 +126,8 @@ def theTests(path_to_code_to_check="."):
         ex_name = "Exercise 1: get some data from the weather underground."
         theirs = process_wunderground(exercise1.wunderground())
         mine = process_wunderground(weather_results)
+        print(type(theirs))
+        print(type(mine))
         print("you gave:", theirs)
         print("expected:", mine)
         testResults.append(
